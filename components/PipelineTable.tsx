@@ -33,7 +33,9 @@ export default function PipelineDashboard() {
 
   const fetchPipelineRuns = async () => {
     try {
+      console.log("pipeline Runs")
       const response = await axios.get("http://localhost:3000/api/pipeline-runs");
+      console.log(response.data[0].pipelineId)
       console.log(response.data)
       setRuns(response.data);
     } catch (err) {
@@ -68,6 +70,7 @@ export default function PipelineDashboard() {
   };
 
   useEffect(() => {
+    console.log("fetch call before")
     fetchPipelineRuns()
     refreshAllData();
     const interval = setInterval(() => refreshAllData(), 100000);
@@ -96,6 +99,7 @@ export default function PipelineDashboard() {
   };
 
   const handleRunClick = (runId: string) => {
+    console.log(runId)
     router.push(`/pipeline/${runId}`);
   };
 
@@ -205,7 +209,7 @@ export default function PipelineDashboard() {
                     <div key={run.id} className="nexus-run-wrapper animate-fadeIn" style={{ animationDelay: `${index * 100}ms` }}>
                       <Card 
                         className={`nexus-run-card ${statusClass}`}
-                        onClick={() => handleRunClick(run.id)}
+                        onClick={() => handleRunClick(run.pipelineId)}
                       >
                         <div className="nexus-run-status-indicator"></div>
                         <CardContent className="nexus-run-content">

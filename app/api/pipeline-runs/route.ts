@@ -21,7 +21,7 @@ export async function GET() {
     });
 
     const runs = pipelines.flatMap(pipeline => {
-      if (pipeline.activities.length === 0) {
+      if (pipeline.activities.length === 0 ) {
         // Handle pipelines with no activities
         return [{
           id: `empty_${pipeline.id}`,
@@ -87,7 +87,7 @@ export async function GET() {
         };
       });
     });
-
+    console.log(runs)
     return NextResponse.json(runs);
   } catch (error) {
     console.error("Error fetching pipeline runs:", error);
